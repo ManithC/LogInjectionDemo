@@ -12,7 +12,7 @@ def home():
         password = request.form["password"]
 
         # Check if both username and password are entered
-        if username and password:
+        if username == "admin" and password == "1234":
             message = "Login successful for user : " + username
         else:
             message = "Login unsuccessful"
