@@ -8,10 +8,10 @@ def home():
 
     if request.method == "POST":
 
-        username = request.form.get("username", "")
-        password = request.form.get("password", "")
+        username = request.form.get("username")
+        password = request.form.get("password")
 
-        # Check login credentials
+        # Check if both username and password
         if username == "admin" and password == "1234":
             message = "Login successful for user : " + username
             success = True
@@ -19,7 +19,7 @@ def home():
             message = "Login failed for user : " + username
             success = False
 
-        # username is written without sanitization
+        # Write the message to the log file
         with open("login.log", "a") as file:
             file.write(message + "\n")
 

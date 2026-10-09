@@ -29,7 +29,10 @@ Place the files in the following structure. The `templates` folder name must be 
 
 ```text
 log-injection/
+├── app_security.log
+├── login.log
 ├── validate.py
+├── Unvalidate.py
 └── templates/
     └── login.html
 ```
@@ -56,7 +59,7 @@ python unvalidate.py
 ```
 When flask starts, the terminal should display a local address similar to
 ```text
-Running on http://127.0.0.1:4000
+Running on http://127.0.0.1:5000
 ```
 keep this terminal open while using the application
 ## 4. Open the application
