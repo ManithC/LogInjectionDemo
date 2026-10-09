@@ -98,7 +98,7 @@
                 const response = await fetch("/", {method: "POST", body: formData});
                 const  data = await response.json();
                 if (data.success) {
-                    alert("valid username);
+                    alert("valid username");
                 }else {
                     alert(data.message);
                 }
