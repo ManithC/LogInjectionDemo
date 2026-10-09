@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, abort
+from flask import Flask, request, render_template, abort, jsonify
 import logging
 import re
 
@@ -20,17 +20,16 @@ security_logger.propagate = False
 def login():
     if request.method == 'POST':
         raw_username = request.form.get('username', '')
-        raw_password = request.form.get('password', '')
 
-        if not re.match(r"^[a-zA-Z0-9_.-]+$]", raw_username):
+        if not re.match(r"^[a-zA-Z0-9_.-]+$", raw_username):
             security_logger.warning("Invalid Username")
 
-            abort(400, description = "Invalid Username")
+            return jsonify({"success": False, "message": "Invalid Username"}),400
 
         safe_username = raw_username.replace("\n",'').replace('\r','')
 
         security_logger.info("Recorded Username: %s", safe_username)
-        return f"Logged in as {safe_username}"
+        return jsonify({"success": True, "username": safe_username})
     return render_template("login.html")
 if __name__ == '__main__':
     app.run(port=4000,debug=True)
