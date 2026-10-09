@@ -12,7 +12,9 @@ file_handler.setLevel(logging.INFO)
 
 formatter = logging.Formatter("[%(asctime)s] [%(levelname)s] %(message)s")
 file_handler.setFormatter(formatter)
-security_logger.addHandler(file_handler)
+
+if not security_logger.handlers:
+    security_logger.addHandler(file_handler)
 
 security_logger.propagate = False
 
@@ -29,7 +31,7 @@ def login():
         safe_username = raw_username.replace("\n",'').replace('\r','')
 
         security_logger.info("Recorded Username: %s", safe_username)
-        return jsonify({"success": True, "username": safe_username})
+        return jsonify({"success": True, "username": safe_username}),200
     return render_template("login.html")
 if __name__ == '__main__':
     app.run(port=4000,debug=True)

@@ -63,12 +63,13 @@
 
 <body>
 
-    <form class="login-form" method="POST">
+    <form class="login-form" id="login-form" method="POST">
 
         <div class="form-group">
             <label>Username</label>
             <textarea
                 name="username"
+                required
             ></textarea>
         </div>
 
@@ -80,9 +81,35 @@
             >
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit" id="login-button">Login</button>
 
     </form>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const loginButton = document.getElementById('login-button');
+        loginForm.addEventListener("submit", async function(event){
+            event.preventDefault();
+
+            const formData = new FormData(loginForm);
+            loginButton.disabled = true;
+
+            try {
+                const response = await fetch("/", {method: "POST", body: formData});
+                const  data = await response.json();
+                if (data.success) {
+                    alert("valid username);
+                }else {
+                    alert(data.message);
+                }
+            }catch (error){
+                console.error(error);
+                alert("Unable to login");
+            }finally {
+                loginButton.disabled = false;
+            }
+        })
+    </script>
 
 </body>
 </html>
